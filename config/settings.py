@@ -33,8 +33,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # --- Apps locais ---
-    "users",  # SGA: app de usuários customizado
+    
+    # --- Bibliotecas Externas ---
+    "pghistory",
+    "pgtrigger",
+    
+    # --- Apps locais do SGA ---
+    "users",
+    "academic",
 ]
 
 MIDDLEWARE = [

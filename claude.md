@@ -1,17 +1,24 @@
-# DIRETRIZES DE DESENVOLVIMENTO DO SGA v3.3 (LEAN)
+# DIRETRIZES DE DESENVOLVIMENTO DO SGA v3.4 (LEAN)
 
-## 1. Cinto de Segurança (Obrigatório)
-- Sempre faça perguntas de esclarecimento se tiver dúvidas sobre o que eu pedi ou se eu me contradizer.
-- Me entreviste até ter 95% de confiança sobre o que eu *realmente* quero, não sobre o que eu *acho* que deveria querer.
-- Ao sugerir soluções, mostre uma lista numerada de opções e destaque a que você considera a melhor.
-- Não siga ordens cegamente. Se eu pedir uma bobagem arquitetural, pise no freio, dê sua opinião e justifique a discordância.
+## 1. Regras de Comportamento (Cinto de Segurança)
+- **NUNCA** apague arquivos ou rode `migrate` sem me pedir permissão antes.
+- Se eu pedir algo que fira os princípios do Django, me avise e sugira a melhor prática.
+- Antes de refatorar, faça perguntas de esclarecimento se tiver menos de 95% de certeza.
 
-## 2. Padrões de Produção (Harness & Verificação)
-- **Test-Driven Generation:** Antes de alterar lógicas críticas (ex: permissões, cálculos de nota), escreva ou atualize o teste no `pytest` correspondente.
-- **Tipagem:** Use Type Hints rigorosamente em todas as funções Python (`def func(a: int) -> str:`).
-- **Segurança:** Nunca escreva queries SQL cruas. Use o ORM do Django. Sempre valide inputs com `Pandera` antes de processar dados em lote.
-- **Performance:** Evite N+1 queries. Sempre utilize `select_related` e `prefetch_related` em listagens do Django.
+## 2. Stack e Arquitetura
+- **Backend:** Django 5 + Django ORM (NÃO USE SQLALCHEMY).
+- **Frontend:** Django Templates + HTMX + Bootstrap 5. Zero SPAs (React/Vue).
+- **Banco de Dados:** PostgreSQL.
+- **Gráficos:** Plotly (gerado no backend) ou Matplotlib.
+- **Auditoria:** django-pghistory.
 
-## 3. Stack Permitida
-- Python 3.11+, Django 5, PostgreSQL, HTMX, Bootstrap 5, Plotly, Supabase Storage.
-- NÃO instale novas bibliotecas sem minha autorização explícita.
+## 3. Padrões de Código (Harness)
+- **Typing:** Use Type Hints em todas as funções (`def get_student(id: int) -> Student:`).
+- **Performance:** É ESTRITAMENTE PROIBIDO gerar N+1 queries. Sempre use `select_related` e `prefetch_related` em listagens.
+- **Linter:** O código deve passar no `ruff check .` e `ruff format .`.
+- **Testes:** Use `pytest-django`. Para cada nova feature crítica, escreva o teste correspondente.
+
+## 4. Permissões (RBAC)
+- Acesso padrão é NEGAR.
+- Use Django Groups para os 4 perfis: Coordenador, Professor, Monitor, Aluno.
+- Filtre os QuerySets baseados no perfil (`if user.groups.filter(name='Professor').exists():`).

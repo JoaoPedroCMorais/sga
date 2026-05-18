@@ -1,0 +1,28 @@
+# Core
+Django>=6.0
+psycopg2-binary>=2.9
+django-environ>=0.11
+
+# Auth & Segurança
+django-allauth>=0.61
+django-pghistory>=3.0
+
+# Dados & ETL
+pandas>=2.2
+pandera>=0.18
+openpyxl>=3.1
+
+# Frontend & Gráficos
+plotly>=5.18
+WeasyPrint>=61.0
+matplotlib>=3.8
+
+# Storage (Supabase/S3)
+django-storages>=1.14
+boto3>=1.34
+
+# Qualidade & Testes (Dev)
+pytest-django>=4.8
+ruff>=0.3
+mypy>=1.9
+django-stubs>=4.2
