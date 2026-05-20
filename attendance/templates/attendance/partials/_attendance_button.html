@@ -1,0 +1,36 @@
+<!-- Fragmento retornado pelo HTMX após toggle_attendance -->
+<div class="d-flex flex-row gap-1 flex-shrink-0" id="actions-{{ student.pk }}">
+
+  <!-- Botão Presente -->
+  <button
+    type="button"
+    class="btn btn-sm {% if record.status == 'PRESENT' %}btn-success{% else %}btn-outline-success{% endif %} btn-touch px-2"
+    title="Marcar como Presente"
+    hx-post="{% url 'attendance:toggle_attendance' %}"
+    hx-vals='{"student_id": "{{ student.pk }}", "status": "PRESENT", "period": "{{ period|default:"BEFORE_BREAK" }}"}'
+    hx-target="#actions-{{ student.pk }}"
+    hx-swap="outerHTML"
+    hx-disabled-elt="this"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+  >
+    <i class="bi {% if record.status == 'PRESENT' %}bi-check-circle-fill{% else %}bi-check-circle{% endif %}"></i>
+    <span class="d-none d-sm-inline ms-1">Presente</span>
+  </button>
+
+  <!-- Botão Falta -->
+  <button
+    type="button"
+    class="btn btn-sm {% if record.status == 'ABSENT' %}btn-danger{% else %}btn-outline-danger{% endif %} btn-touch px-2"
+    title="Marcar como Ausente"
+    hx-post="{% url 'attendance:toggle_attendance' %}"
+    hx-vals='{"student_id": "{{ student.pk }}", "status": "ABSENT", "period": "{{ period|default:"BEFORE_BREAK" }}"}'
+    hx-target="#actions-{{ student.pk }}"
+    hx-swap="outerHTML"
+    hx-disabled-elt="this"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+  >
+    <i class="bi {% if record.status == 'ABSENT' %}bi-x-circle-fill{% else %}bi-x-circle{% endif %}"></i>
+    <span class="d-none d-sm-inline ms-1">Falta</span>
+  </button>
+
+</div>

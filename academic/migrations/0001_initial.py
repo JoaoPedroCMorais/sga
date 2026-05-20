@@ -8,102 +8,270 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('pghistory', '0007_auto_20250421_0444'),
+        ("pghistory", "0007_auto_20250421_0444"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ClassGroup',
+            name="ClassGroup",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, unique=True, verbose_name='Nome da Turma')),
-                ('year', models.IntegerField(verbose_name='Ano Letivo')),
-                ('is_active', models.BooleanField(default=True, verbose_name='Ativa')),
-                ('teachers', models.ManyToManyField(blank=True, limit_choices_to={'role': 'PROFESSOR'}, related_name='teaching_classes', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=100, unique=True, verbose_name="Nome da Turma"
+                    ),
+                ),
+                ("year", models.IntegerField(verbose_name="Ano Letivo")),
+                ("is_active", models.BooleanField(default=True, verbose_name="Ativa")),
+                (
+                    "teachers",
+                    models.ManyToManyField(
+                        blank=True,
+                        limit_choices_to={"role": "PROFESSOR"},
+                        related_name="teaching_classes",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Turma',
-                'verbose_name_plural': 'Turmas',
-                'ordering': ['-year', 'name'],
+                "verbose_name": "Turma",
+                "verbose_name_plural": "Turmas",
+                "ordering": ["-year", "name"],
             },
         ),
         migrations.CreateModel(
-            name='ClassGroupEvent',
+            name="ClassGroupEvent",
             fields=[
-                ('pgh_id', models.AutoField(primary_key=True, serialize=False)),
-                ('pgh_created_at', models.DateTimeField(auto_now_add=True)),
-                ('pgh_label', models.TextField(help_text='The event label.')),
-                ('id', models.BigIntegerField()),
-                ('name', models.CharField(max_length=100, verbose_name='Nome da Turma')),
-                ('year', models.IntegerField(verbose_name='Ano Letivo')),
-                ('is_active', models.BooleanField(default=True, verbose_name='Ativa')),
-                ('pgh_context', models.ForeignKey(db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='pghistory.context')),
-                ('pgh_obj', models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.DO_NOTHING, related_name='events', to='academic.classgroup')),
+                ("pgh_id", models.AutoField(primary_key=True, serialize=False)),
+                ("pgh_created_at", models.DateTimeField(auto_now_add=True)),
+                ("pgh_label", models.TextField(help_text="The event label.")),
+                ("id", models.BigIntegerField()),
+                (
+                    "name",
+                    models.CharField(max_length=100, verbose_name="Nome da Turma"),
+                ),
+                ("year", models.IntegerField(verbose_name="Ano Letivo")),
+                ("is_active", models.BooleanField(default=True, verbose_name="Ativa")),
+                (
+                    "pgh_context",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="pghistory.context",
+                    ),
+                ),
+                (
+                    "pgh_obj",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="events",
+                        to="academic.classgroup",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Student',
+            name="Student",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('enrollment_number', models.CharField(db_index=True, max_length=20, unique=True, verbose_name='Matrícula')),
-                ('full_name', models.CharField(max_length=200, verbose_name='Nome Completo')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('class_group', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='students', to='academic.classgroup')),
-                ('user', models.OneToOneField(limit_choices_to={'role': 'ALUNO'}, on_delete=django.db.models.deletion.CASCADE, related_name='student_profile', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "enrollment_number",
+                    models.CharField(
+                        db_index=True,
+                        max_length=20,
+                        unique=True,
+                        verbose_name="Matrícula",
+                    ),
+                ),
+                (
+                    "full_name",
+                    models.CharField(max_length=200, verbose_name="Nome Completo"),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "class_group",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="students",
+                        to="academic.classgroup",
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        limit_choices_to={"role": "ALUNO"},
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="student_profile",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Aluno',
-                'verbose_name_plural': 'Alunos',
-                'ordering': ['full_name'],
+                "verbose_name": "Aluno",
+                "verbose_name_plural": "Alunos",
+                "ordering": ["full_name"],
             },
         ),
         migrations.CreateModel(
-            name='StudentEvent',
+            name="StudentEvent",
             fields=[
-                ('pgh_id', models.AutoField(primary_key=True, serialize=False)),
-                ('pgh_created_at', models.DateTimeField(auto_now_add=True)),
-                ('pgh_label', models.TextField(help_text='The event label.')),
-                ('id', models.BigIntegerField()),
-                ('enrollment_number', models.CharField(max_length=20, verbose_name='Matrícula')),
-                ('full_name', models.CharField(max_length=200, verbose_name='Nome Completo')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('class_group', models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', related_query_name='+', to='academic.classgroup')),
-                ('pgh_context', models.ForeignKey(db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='pghistory.context')),
-                ('pgh_obj', models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.DO_NOTHING, related_name='events', to='academic.student')),
-                ('user', models.ForeignKey(db_constraint=False, limit_choices_to={'role': 'ALUNO'}, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', related_query_name='+', to=settings.AUTH_USER_MODEL)),
+                ("pgh_id", models.AutoField(primary_key=True, serialize=False)),
+                ("pgh_created_at", models.DateTimeField(auto_now_add=True)),
+                ("pgh_label", models.TextField(help_text="The event label.")),
+                ("id", models.BigIntegerField()),
+                (
+                    "enrollment_number",
+                    models.CharField(max_length=20, verbose_name="Matrícula"),
+                ),
+                (
+                    "full_name",
+                    models.CharField(max_length=200, verbose_name="Nome Completo"),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "class_group",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        related_query_name="+",
+                        to="academic.classgroup",
+                    ),
+                ),
+                (
+                    "pgh_context",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="pghistory.context",
+                    ),
+                ),
+                (
+                    "pgh_obj",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="events",
+                        to="academic.student",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        limit_choices_to={"role": "ALUNO"},
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        related_query_name="+",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         pgtrigger.migrations.AddTrigger(
-            model_name='classgroup',
-            trigger=pgtrigger.compiler.Trigger(name='class_created_insert', sql=pgtrigger.compiler.UpsertTriggerSql(func='INSERT INTO "academic_classgroupevent" ("id", "is_active", "name", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "year") VALUES (NEW."id", NEW."is_active", NEW."name", _pgh_attach_context(), NOW(), \'class_created\', NEW."id", NEW."year"); RETURN NULL;', hash='b3f4efd18b46ff71ebff438a5eb387d3fcceb6fe', operation='INSERT', pgid='pgtrigger_class_created_insert_86648', table='academic_classgroup', when='AFTER')),
+            model_name="classgroup",
+            trigger=pgtrigger.compiler.Trigger(
+                name="class_created_insert",
+                sql=pgtrigger.compiler.UpsertTriggerSql(
+                    func='INSERT INTO "academic_classgroupevent" ("id", "is_active", "name", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "year") VALUES (NEW."id", NEW."is_active", NEW."name", _pgh_attach_context(), NOW(), \'class_created\', NEW."id", NEW."year"); RETURN NULL;',
+                    hash="b3f4efd18b46ff71ebff438a5eb387d3fcceb6fe",
+                    operation="INSERT",
+                    pgid="pgtrigger_class_created_insert_86648",
+                    table="academic_classgroup",
+                    when="AFTER",
+                ),
+            ),
         ),
         pgtrigger.migrations.AddTrigger(
-            model_name='classgroup',
-            trigger=pgtrigger.compiler.Trigger(name='class_updated_update', sql=pgtrigger.compiler.UpsertTriggerSql(condition='WHEN (OLD.* IS DISTINCT FROM NEW.*)', func='INSERT INTO "academic_classgroupevent" ("id", "is_active", "name", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "year") VALUES (NEW."id", NEW."is_active", NEW."name", _pgh_attach_context(), NOW(), \'class_updated\', NEW."id", NEW."year"); RETURN NULL;', hash='fa10fd7590148cb126198b2d49e5408b62e0a63c', operation='UPDATE', pgid='pgtrigger_class_updated_update_9147a', table='academic_classgroup', when='AFTER')),
+            model_name="classgroup",
+            trigger=pgtrigger.compiler.Trigger(
+                name="class_updated_update",
+                sql=pgtrigger.compiler.UpsertTriggerSql(
+                    condition="WHEN (OLD.* IS DISTINCT FROM NEW.*)",
+                    func='INSERT INTO "academic_classgroupevent" ("id", "is_active", "name", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "year") VALUES (NEW."id", NEW."is_active", NEW."name", _pgh_attach_context(), NOW(), \'class_updated\', NEW."id", NEW."year"); RETURN NULL;',
+                    hash="fa10fd7590148cb126198b2d49e5408b62e0a63c",
+                    operation="UPDATE",
+                    pgid="pgtrigger_class_updated_update_9147a",
+                    table="academic_classgroup",
+                    when="AFTER",
+                ),
+            ),
         ),
         pgtrigger.migrations.AddTrigger(
-            model_name='classgroup',
-            trigger=pgtrigger.compiler.Trigger(name='class_deleted_delete', sql=pgtrigger.compiler.UpsertTriggerSql(func='INSERT INTO "academic_classgroupevent" ("id", "is_active", "name", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "year") VALUES (OLD."id", OLD."is_active", OLD."name", _pgh_attach_context(), NOW(), \'class_deleted\', OLD."id", OLD."year"); RETURN NULL;', hash='3e4832283cf656bdf2a26680cbbce541f360f1ec', operation='DELETE', pgid='pgtrigger_class_deleted_delete_50326', table='academic_classgroup', when='AFTER')),
+            model_name="classgroup",
+            trigger=pgtrigger.compiler.Trigger(
+                name="class_deleted_delete",
+                sql=pgtrigger.compiler.UpsertTriggerSql(
+                    func='INSERT INTO "academic_classgroupevent" ("id", "is_active", "name", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "year") VALUES (OLD."id", OLD."is_active", OLD."name", _pgh_attach_context(), NOW(), \'class_deleted\', OLD."id", OLD."year"); RETURN NULL;',
+                    hash="3e4832283cf656bdf2a26680cbbce541f360f1ec",
+                    operation="DELETE",
+                    pgid="pgtrigger_class_deleted_delete_50326",
+                    table="academic_classgroup",
+                    when="AFTER",
+                ),
+            ),
         ),
         pgtrigger.migrations.AddTrigger(
-            model_name='student',
-            trigger=pgtrigger.compiler.Trigger(name='student_created_insert', sql=pgtrigger.compiler.UpsertTriggerSql(func='INSERT INTO "academic_studentevent" ("class_group_id", "created_at", "enrollment_number", "full_name", "id", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "updated_at", "user_id") VALUES (NEW."class_group_id", NEW."created_at", NEW."enrollment_number", NEW."full_name", NEW."id", _pgh_attach_context(), NOW(), \'student_created\', NEW."id", NEW."updated_at", NEW."user_id"); RETURN NULL;', hash='bbb083449404df5f0502aef6a5a311fd1da8012b', operation='INSERT', pgid='pgtrigger_student_created_insert_0c710', table='academic_student', when='AFTER')),
+            model_name="student",
+            trigger=pgtrigger.compiler.Trigger(
+                name="student_created_insert",
+                sql=pgtrigger.compiler.UpsertTriggerSql(
+                    func='INSERT INTO "academic_studentevent" ("class_group_id", "created_at", "enrollment_number", "full_name", "id", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "updated_at", "user_id") VALUES (NEW."class_group_id", NEW."created_at", NEW."enrollment_number", NEW."full_name", NEW."id", _pgh_attach_context(), NOW(), \'student_created\', NEW."id", NEW."updated_at", NEW."user_id"); RETURN NULL;',
+                    hash="bbb083449404df5f0502aef6a5a311fd1da8012b",
+                    operation="INSERT",
+                    pgid="pgtrigger_student_created_insert_0c710",
+                    table="academic_student",
+                    when="AFTER",
+                ),
+            ),
         ),
         pgtrigger.migrations.AddTrigger(
-            model_name='student',
-            trigger=pgtrigger.compiler.Trigger(name='student_updated_update', sql=pgtrigger.compiler.UpsertTriggerSql(condition='WHEN (OLD.* IS DISTINCT FROM NEW.*)', func='INSERT INTO "academic_studentevent" ("class_group_id", "created_at", "enrollment_number", "full_name", "id", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "updated_at", "user_id") VALUES (NEW."class_group_id", NEW."created_at", NEW."enrollment_number", NEW."full_name", NEW."id", _pgh_attach_context(), NOW(), \'student_updated\', NEW."id", NEW."updated_at", NEW."user_id"); RETURN NULL;', hash='089a17d2c2e8943f21f1fcd421bf6a59bf08b9be', operation='UPDATE', pgid='pgtrigger_student_updated_update_5fc58', table='academic_student', when='AFTER')),
+            model_name="student",
+            trigger=pgtrigger.compiler.Trigger(
+                name="student_updated_update",
+                sql=pgtrigger.compiler.UpsertTriggerSql(
+                    condition="WHEN (OLD.* IS DISTINCT FROM NEW.*)",
+                    func='INSERT INTO "academic_studentevent" ("class_group_id", "created_at", "enrollment_number", "full_name", "id", "pgh_context_id", "pgh_created_at", "pgh_label", "pgh_obj_id", "updated_at", "user_id") VALUES (NEW."class_group_id", NEW."created_at", NEW."enrollment_number", NEW."full_name", NEW."id", _pgh_attach_context(), NOW(), \'student_updated\', NEW."id", NEW."updated_at", NEW."user_id"); RETURN NULL;',
+                    hash="089a17d2c2e8943f21f1fcd421bf6a59bf08b9be",
+                    operation="UPDATE",
+                    pgid="pgtrigger_student_updated_update_5fc58",
+                    table="academic_student",
+                    when="AFTER",
+                ),
+            ),
         ),
     ]
