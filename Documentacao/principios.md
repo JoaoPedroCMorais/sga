@@ -234,5 +234,5 @@ Ver ADR-017.
 ## Referências
 
 - `stack.md` — pilha tecnológica canônica
-- `decisoes_arquiteturais.md` — ADRs que fundamentam cada princípio
+- `adr/` — as ADRs que fundamentam cada princípio
 - `migracao_v3_para_v4.md` — registro do pivô arquitetural

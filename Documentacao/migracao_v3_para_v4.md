@@ -230,7 +230,7 @@ portanto, não sofreram descarte — apenas replanejamento de tecnologia.
 | Stack tecnológica | Reescrita integral | `stack.md` |
 | Princípios | Reescrita de 2 de 7; adição de 1 | `principios.md` |
 | Blueprint de arquitetura | Reescrita integral; promovido a documento canônico | `blueprint.md` |
-| ADRs | 7 marcadas com status; 11 novas | `decisoes_arquiteturais.md` |
+| ADRs | 7 marcadas com status; 11 novas; divididas em arquivos | `adr/` |
 | Roadmap | Reescrita integral | `roadmap.md` |
 | Estrutura de diretórios | Reescrita integral (monorepo) | `diretorios.md` |
 | Diretrizes de desenvolvimento | Reescrita integral | `../CLAUDE.md` |
@@ -245,6 +245,6 @@ portanto, não sofreram descarte — apenas replanejamento de tecnologia.
 - `stack.md` — pilha tecnológica da v4.0
 - `principios.md` — os 8 princípios vigentes
 - `blueprint.md` — arquitetura em camadas
-- `decisoes_arquiteturais.md` — ADR-001 a ADR-018, com histórico completo
+- `adr/` — as 18 ADRs, um arquivo por decisão (índice em `decisoes_arquiteturais.md`), com histórico completo
 - `roadmap.md` — cronograma e riscos assumidos
 - `_arquivo_v3_4/` — documentação congelada da arquitetura anterior

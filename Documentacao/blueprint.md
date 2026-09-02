@@ -340,5 +340,5 @@ evolução possível.
 
 - `stack.md` — pilha tecnológica canônica
 - `principios.md` — os 8 princípios
-- `decisoes_arquiteturais.md` — ADR-001 a ADR-018
+- `adr/` — as 18 ADRs, um arquivo por decisão (índice em `decisoes_arquiteturais.md`)
 - `diretorios.md` — mapeamento das camadas para pastas

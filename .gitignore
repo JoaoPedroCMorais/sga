@@ -1,23 +1,68 @@
+# ==============================================================================
+# Vault Obsidian — conhecimento pessoal, não versionar
+# ==============================================================================
+# O Cérebro é o SSOT pessoal (projetos, áreas de vida, estudos, método de trabalho).
+# Não pertence ao repositório do código. O workspace.json do Obsidian ainda muda
+# a cada aba aberta, o que polui todo diff.
+Cerebro/
+.obsidian/
+
+# ==============================================================================
+# Ferramentas locais
+# ==============================================================================
+.claude/worktrees/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.vscode/
+.idea/
+
+# ==============================================================================
+# Segredos — NUNCA versionar
+# ==============================================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# ==============================================================================
 # Python
+# ==============================================================================
 venv/
+.venv/
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
 .Python
 *.egg-info/
 dist/
 build/
-
-# Environment variables
-.env
-.env.*
-
-# Django
 *.log
+
+# ==============================================================================
+# Node / Next.js (v4.0)
+# ==============================================================================
+node_modules/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+.pnpm-store/
+
+# ==============================================================================
+# Banco e uploads
+# ==============================================================================
 db.sqlite3
 media/
+*.dump
 
-# OS
+# ==============================================================================
+# Sistema operacional
+# ==============================================================================
 .DS_Store
 Thumbs.db
+desktop.ini
+LIMPAR-HISTORICO-GIT.md

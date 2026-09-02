@@ -338,5 +338,5 @@ Coordenador de IC — antes que a compressão vire dívida técnica ou entrega i
 
 - `stack.md` — pilha tecnológica
 - `principios.md` — princípios que orientam as prioridades de cada fase
-- `decisoes_arquiteturais.md` — ADRs citadas ao longo deste roadmap
+- `adr/` — as ADRs citadas ao longo deste roadmap
 - `migracao_v3_para_v4.md` — o que foi aproveitado do trabalho das fases 1 e 2 da v3.4

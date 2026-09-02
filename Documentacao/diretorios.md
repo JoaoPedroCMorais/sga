@@ -292,4 +292,4 @@ Nenhum outro andaime temporário é permitido sem ADR que declare a data de remo
 
 - `blueprint.md` — camadas arquiteturais mapeadas nestes diretórios
 - `stack.md` — tecnologias de cada camada
-- `decisoes_arquiteturais.md` — ADRs que justificam estas separações
+- `adr/` — as ADRs que justificam estas separações

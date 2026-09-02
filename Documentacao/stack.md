@@ -227,6 +227,6 @@ Duas tecnologias estavam explicitamente proibidas na v3.4 e retornam com o pivô
 
 - `principios.md` — os 8 princípios que fundamentam estas escolhas
 - `blueprint.md` — arquitetura em camadas
-- `decisoes_arquiteturais.md` — ADR-001 a ADR-018
+- `adr/` — as 18 ADRs, um arquivo por decisão (índice em `decisoes_arquiteturais.md`)
 - `diretorios.md` — estrutura do monorepo
 - `roadmap.md` — cronograma de implementação
